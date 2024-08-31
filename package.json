@@ -2,8 +2,11 @@
   "name": "khaopilot",
   "publisher": "khaogamermain01",
   "displayName": "KhaoPilot",
-  "description": "GitHub Copilot in 83 lines of JavaScript.",
+  "description": "GitHub Copilot in Many lines of JavaScript.",
   "version": "0.0.1",
+	"repository": {
+		"url": "https://github.com/Khaogamermain01/khaopilot"
+	},
   "engines": {
     "vscode": "^1.90.0"
   },
