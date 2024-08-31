@@ -1,12 +1,9 @@
 {
-  "name": "picopilot",
-  "publisher": "coder",
-  "displayName": "Picopilot",
-  "description": "GitHub Copilot in 70 lines of JavaScript.",
-  "repository": {
-    "url": "https://github.com/coder/picopilot"
-  },
-  "version": "1.0.3",
+  "name": "khaopilot",
+  "publisher": "khaogamermain01",
+  "displayName": "KhaoPilot",
+  "description": "GitHub Copilot in 83 lines of JavaScript.",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -23,13 +20,13 @@
   "contributes": {
     "commands": [
       {
-        "command": "picopilot.token",
-        "title": "Picopilot: Set OpenAI API Key"
+        "command": "khaopilot.token",
+        "title": "KhaoPilot: Set OpenAI API Base URL, Key, and Model"
       }
     ],
-    "configuration":[
+    "configuration": [
       {
-        "title": "Picopilot",
+        "title": "KhaoPilot",
         "properties": {
           "picopilot.prompt": {
             "type": "string",
@@ -51,6 +48,6 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "openai": "^4.52.0"
+    "openai": "^4.57.0"
   }
 }

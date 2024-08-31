@@ -1,11 +1,11 @@
 const vscode = require("vscode");
-const OpenAI = require("openai");
+const { default: OpenAI } = require("openai");
 
 module.exports = {
   activate: (ctx) => {
     let api;
     const initAPI = async () => {
-      api = new OpenAI({ apiKey: await ctx.secrets.get("openai-key") });
+      api = new OpenAI({ baseURL: await ctx.secrets.get("openai-url") ?? "https://api.openai.com/v1/", apiKey: await ctx.secrets.get("openai-key") });
     };
     initAPI();
     ctx.secrets.onDidChange((event) => {
@@ -21,13 +21,13 @@ module.exports = {
               "Set Key"
             );
             if (res)
-              await vscode.commands.executeCommand("picopilot.token");
+              await vscode.commands.executeCommand("khaopilot.token");
             return;
           }
           const prefix = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
           const suffix = document.getText(new vscode.Range(position, document.positionAt(document.getText().length)));
           const prompt =
-            vscode.workspace.getConfiguration("picopilot").get("prompt") || `You provide code completion results given a prefix and suffix.
+            vscode.workspace.getConfiguration("khaopilot").get("prompt") || `You provide code completion results given a prefix and suffix.
 Respond with a JSON object with the key 'completion' containing a suggestion to place between the prefix and suffix.
 Follow existing code styles. Listen to comments at the end of the prefix. The language is "{language}".`;
 
@@ -40,7 +40,7 @@ Follow existing code styles. Listen to comments at the end of the prefix. The la
               { role: "user", content: prefix },
               { role: "user", content: suffix },
             ],
-            model: "gpt-4o",
+            model: ctx.secrets.get("openai-model") ?? "gpt-4o",
             max_tokens: 500,
             response_format: { type: "json_object" },
           });
@@ -51,19 +51,30 @@ Follow existing code styles. Listen to comments at the end of the prefix. The la
         },
       }
     );
-    vscode.commands.registerCommand("picopilot.token", async () => {
-      await vscode.env.openExternal(
-        vscode.Uri.parse("https://platform.openai.com/api-keys")
-      );
-      const res = await vscode.window.showInputBox({
-        title: "OpenAI API Key",
-        prompt: "Generate an API Key and paste it in!",
+    vscode.commands.registerCommand("khaopilot.token", async () => {
+      const resBaseURL = await vscode.window.showInputBox({
+        title: "OpenAI Base URL",
+        prompt: "Set the OpenAI Base URL",
         ignoreFocusOut: true,
         password: true,
       });
-      if (res) {
-        await ctx.secrets.store("openai-key", res);
-        vscode.window.showInformationMessage("PicoPilot is working!");
+			const resKey = await vscode.window.showInputBox({
+        title: "OpenAI Key",
+        prompt: "Set the OpenAI Key",
+        ignoreFocusOut: true,
+        password: true,
+      });
+			const resModel = await vscode.window.showInputBox({
+        title: "OpenAI Model",
+        prompt: "Set a OpenAI Model",
+        ignoreFocusOut: true,
+        password: true,
+      });
+      if (resKey) {
+				if (resBaseURL) await ctx.secrets.store("openai-url", resBaseURL); 
+				if (resModel) await ctx.secrets.store("openai-model", resModel); 
+        await ctx.secrets.store("openai-key", resKey);
+        vscode.window.showInformationMessage("KhaoPilot is working!");
         initAPI();
       }
     });

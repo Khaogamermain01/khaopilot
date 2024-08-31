@@ -1,11 +1,12 @@
 <h1>
     <img src="./icon.png" width="48px" style="margin-right: 12px;" align="center">
-    Picopilot
+    KhaoPilot (Fork of Picopilot by Coder)
 </h1>
 
+Picopilot on Visual Studio Marketplace:
 [![Visual Studio Marketplace](https://vsmarketplacebadges.dev/version/coder.picopilot.svg)](https://marketplace.visualstudio.com/items?itemName=coder.picopilot)
 
-[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) in [70 lines of JavaScript](./extension.js).
+[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) in [Many lines of JavaScript](./extension.js).
 
 System Prompt:
 
@@ -25,7 +26,7 @@ Response Format:
 }
 ```
 
-## Demos
+## Demos (Picopilot Provided)
 
 _All demos are unedited._
 
@@ -40,14 +41,6 @@ _All demos are unedited._
 ### Using the GitHub API
 
 ![GitHub API](./demo/github-api.gif)
-
-## Install
-
-Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
-
-```text
-ext install coder.picopilot
-```
 
 Feel free to configure a custom prompt in your settings.
 
